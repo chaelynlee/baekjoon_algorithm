@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+bool wordcheck(string str){
+    bool alpha[26] = {false, };
+    
+    for(int i=0; i<str.length(); i++){
+        if(alpha[str[i] - 'a']){ //이미 발견되었던 알파벳이므로
+            return false; // 함수의 리턴값을 false로 해서 그룹단어가 아님을 표시한다
+        }
+        
+        else{   //발견되지 않은 알파벳이므로
+            char tmp = str[i];
+            alpha[str[i] - 'a'] = true;
+        
+            while (1) {
+                if(tmp != str[++i]){ //현재와 다른 알파벳이 올때까지 탐색
+                    i--;
+                    break;
+                }
+            }
+        }
+    }
+    return true; //그룹단어임
+}
+
+int main(){
+    int tc;
+    cin >> tc;
+    int cnt = 0; // 그룹단어 개수
+    
+    for(int i=0; i<tc; i++){
+        string str;
+        cin >> str;
+        
+        if(wordcheck(str))
+            cnt++;
+    }
+    cout << cnt;
+    
+    return 0;
+}
